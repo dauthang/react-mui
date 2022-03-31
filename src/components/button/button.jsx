@@ -1,27 +1,26 @@
-import React, {useState} from 'react';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
+import React from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-const ButtonApp = () => {
-    const [loading, setLoading] = useState(false);
-    const [label, setlabel] = useState('submit')
-    function handleClick() {
-        setLoading(true);
-    }
-    return (
-      <div>
-          <LoadingButton
-              size="small"
-              onClick={handleClick}
-              endIcon={<SendIcon />}
-              loading={loading}
-              loadingPosition="end"
-              variant="contained"
-          >
-              {label}
-          </LoadingButton>
-      </div>
-    );
-}
+const ButtonApp = (props) => {
+  const { onClick, loading } = props;
+  return (
+    <div>
+      <LoadingButton
+        size="small"
+        onClick={onClick}
+        loading={loading}
+        variant="contained"
+        style={style}
+        type="button"
+      >
+        {props.label}
+      </LoadingButton>
+    </div>
+  );
+};
+
+const style = {
+  marginTop: "10px",
+};
 
 export default ButtonApp;
