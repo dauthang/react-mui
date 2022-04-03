@@ -1,11 +1,28 @@
 import React from "react";
-
-const Home = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  );
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+const Home = (props) => {
+  const auth = localStorage.getItem("auth");
+  if (!auth || !props.user) {
+    return <Navigate to="/login" />;
+  } else {
+    return <h1>Home</h1>;
+  }
+};
+const mapStateToProps = (state) => {
+  console.log("Home", state);
+  console.log("Home", localStorage.getItem("auth"));
+  return {
+    user: state,
+  };
 };
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (useState) => {
+      dispatch();
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -4,14 +4,17 @@ import { Col, Row } from "react-bootstrap";
 import ButtonApp from "../button/button";
 import { connect, useDispatch } from "react-redux";
 import { LoginAuthAction } from "../../redux/actions/AuthAction";
-import store from "../../redux/store";
+import { Navigate } from "react-router-dom";
 
 const LoginApp = (props) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [routerHome, setRouterHome] = useState(false);
   const dispatch = useDispatch();
+
   const handleChildClicked = () => {
     dispatch(LoginAuthAction({ username, password }));
+    setRouterHome(true);
   };
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -19,6 +22,10 @@ const LoginApp = (props) => {
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
+  // if (routerHome) {
+  //   console.log("ok ");
+  //   return <Navigate to="/" push={true} />;
+  // }
   return (
     <div>
       <Row>
@@ -56,6 +63,7 @@ const styleButton = {
 };
 
 const mapStateToProps = (state) => {
+  console.log("mapStateToProps", state);
   return {
     user: state,
   };

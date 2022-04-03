@@ -1,5 +1,7 @@
 import axios from "axios";
 import qs from "qs";
+import { Navigate } from "react-router-dom";
+import React from "react";
 const AuthActionType = {
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_FAIL: "REGISTER_FAIL",
@@ -34,6 +36,7 @@ const LoginAuthAction = (userState) => {
       .then((res) => {
         console.log(res);
         dispatch({ type: AuthActionType.LOGIN_SUCCESS, payload: "data" });
+        return <Navigate to="/" push={true} />;
       })
       .catch(function (error) {
         console.log(error);
