@@ -5,16 +5,19 @@ import ButtonApp from "../button/button";
 import { connect, useDispatch } from "react-redux";
 import { LoginAuthAction } from "../../redux/actions/AuthAction";
 import { Navigate } from "react-router-dom";
-
+import BlockUI from "../block-ui/block-ui-app";
 const LoginApp = (props) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [routerHome, setRouterHome] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleChildClicked = () => {
+    setLoading(true);
     dispatch(LoginAuthAction({ username, password }));
-    setRouterHome(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   };
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -22,10 +25,10 @@ const LoginApp = (props) => {
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
-  // if (routerHome) {
-  //   console.log("ok ");
-  //   return <Navigate to="/" push={true} />;
-  // }
+
+  if (localStorage.getItem("auth")) {
+    return <Navigate to="/" push={true} />;
+  }
   return (
     <div>
       <Row>
@@ -53,6 +56,7 @@ const LoginApp = (props) => {
           />
         </Col>
       </Row>
+      <BlockUI blocking={loading} />
     </div>
   );
 };
@@ -63,7 +67,6 @@ const styleButton = {
 };
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps", state);
   return {
     user: state,
   };

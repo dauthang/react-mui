@@ -10,8 +10,6 @@ const Home = (props) => {
   }
 };
 const mapStateToProps = (state) => {
-  console.log("Home", state);
-  console.log("Home", localStorage.getItem("auth"));
   return {
     user: state,
   };
